@@ -52,4 +52,7 @@ shape = SubResource( 3 )
 position = Vector2( 896, 512 )
 current = true
 zoom = Vector2( 1.75, 1.7 )
+
+[node name="GameLoop" type="Timer" parent="."]
 [connection signal="body_entered" from="DamageArea" to="." method="_on_Area2D_body_entered"]
+[connection signal="timeout" from="GameLoop" to="." method="_on_GameLoop_timeout"]

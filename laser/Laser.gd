@@ -2,6 +2,7 @@ extends Node2D
 
 onready var line:Line2D = $Line2D
 onready var particles:Particles2D = $Particles2D
+onready var parent = get_parent()
 
 export var laser_color:Color = Color.red
 export var enable:bool = true
@@ -18,7 +19,7 @@ func _physics_process(delta):
 	line.clear_points()
 	if enable:
 		var to:Vector2 = Vector2(1000, 0).rotated(laser_rotation)+global_position
-		var result:Dictionary = get_world_2d().direct_space_state.intersect_ray(global_position, to, [get_parent()])
+		var result:Dictionary = get_world_2d().direct_space_state.intersect_ray(global_position, to, [parent])
 		if result:
 			emit_signal("hit", result, $".")
 			to = result.position
