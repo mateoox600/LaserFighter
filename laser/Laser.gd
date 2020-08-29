@@ -3,10 +3,11 @@ extends Node2D
 onready var line:Line2D = $Line2D
 onready var particles:Particles2D = $Particles2D
 
-export var laser_rotation:float = 0
 export var laser_color:Color = Color.red
 export var enable:bool = true
 export var damage:float = 0.5;
+
+var laser_rotation:float = 0
 
 signal hit(result, laser)
 
@@ -17,7 +18,7 @@ func _physics_process(delta):
 	line.clear_points()
 	if enable:
 		var to:Vector2 = Vector2(1000, 0).rotated(laser_rotation)+global_position
-		var result:Dictionary = get_world_2d().direct_space_state.intersect_ray(global_position, to, [get_parent().get_node("Player")])
+		var result:Dictionary = get_world_2d().direct_space_state.intersect_ray(global_position, to, [get_parent()])
 		if result:
 			emit_signal("hit", result, $".")
 			to = result.position
@@ -27,4 +28,4 @@ func _physics_process(delta):
 		else:
 			particles.emitting = false
 		line.add_point(Vector2(0, 0))
-		line.add_point(to-position)
+		line.add_point(to-global_position)
