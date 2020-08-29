@@ -1,9 +1,5 @@
 extends KinematicBody2D
 
-onready var sprite = $Sprite
-onready var collider = $CollisionShape2D
-onready var camera = $Camera2D
-
 export var health:float = 250.00
 
 func _ready():
@@ -17,4 +13,4 @@ func _physics_process(delta):
 func damage(hit_damage:int):
 	health-= hit_damage
 	if health <= 0:
-		queue_free()
+		$Label.visible = true

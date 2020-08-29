@@ -32,6 +32,6 @@ func spawn_wall():
 
 
 func _on_Area2D_body_entered(body):
-	if body is KinematicBody2D and body.get_filename() == platform.get_path() and $Player.health > 0:
+	if body is KinematicBody2D and body.get_filename() == platform.get_path():
 		$Player.damage(5)
 		body.queue_free()

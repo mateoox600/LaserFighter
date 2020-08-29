@@ -1,11 +1,16 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://player/Player.gd" type="Script" id=1]
 [ext_resource path="res://laser/Laser.tscn" type="PackedScene" id=2]
 [ext_resource path="res://icon.png" type="Texture" id=3]
+[ext_resource path="res://OpenSans-Regular.ttf" type="DynamicFontData" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 100, 48 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 128
+font_data = ExtResource( 4 )
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 1 )
@@ -31,3 +36,15 @@ texture = ExtResource( 3 )
 position = Vector2( -45, 0 )
 scale = Vector2( 1.75, 0.5 )
 texture = ExtResource( 3 )
+
+[node name="Label" type="Label" parent="."]
+visible = false
+margin_left = -333.316
+margin_top = -282.447
+margin_right = 520.684
+margin_bottom = 328.553
+custom_fonts/font = SubResource( 2 )
+text = "YOU DED"
+__meta__ = {
+"_edit_use_anchors_": false
+}
