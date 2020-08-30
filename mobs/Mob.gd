@@ -9,7 +9,6 @@ export var health:float = 10.0
 export var width:int = 1
 export var height:int = 1
 export var sprite:Texture = null
-export var is_colliding:bool = true
 
 func _ready() -> void:
 	if sprite == null:
@@ -19,7 +18,6 @@ func _ready() -> void:
 		texture_rect.rect_size = Vector2(sprite.get_width()*width, sprite.get_height()*height)
 		texture_rect.rect_position = -Vector2(sprite.get_width()*width, sprite.get_height()*height)
 		collider.shape.set_extents(Vector2(float(sprite.get_width()*width-1), float(sprite.get_height()*height-1)))
-	collider.disabled = !is_colliding
 
 func _physics_process(delta):
 	move_and_slide(Vector2(-1, 0)*150)

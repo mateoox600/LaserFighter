@@ -4,14 +4,14 @@
 [ext_resource path="res://mobs/Mob.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
+resource_local_to_scene = true
 extents = Vector2( 0, 64 )
 
-[node name="Platform" type="KinematicBody2D"]
+[node name="Mob" type="KinematicBody2D"]
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
-disabled = true
 
 [node name="TextureRect" type="TextureRect" parent="."]
 rect_scale = Vector2( 2, 2 )
