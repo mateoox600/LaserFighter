@@ -5,8 +5,7 @@ var is_spawning:bool = false
 onready var player = $Player
 onready var player_laser = $Player/Laser
 onready var gameloop_timer = $GameLoop
-onready var walls_sprite = load("res://icon.png")
-onready var platform = preload("res://platform/Mob.tscn")
+#onready var mob_instance = preload("res://mobs/Mob.tscn")
 
 func _ready():
 	randomize()
@@ -20,17 +19,17 @@ func _physics_process(delta):
 
 
 func _on_Area2D_body_entered(body):
-	if body is KinematicBody2D and body.get_filename() == platform.get_path():
+	if body is Mob:
 		player.damage(5)
 		body.queue_free()
 
 
 func _on_GameLoop_timeout():
-	var mob = platform.instance()
+	var mob_instance = load("res://mobs/Mob.tscn")
+	var mob = mob_instance.instance()
 	var size_number = randi()%4
 	mob.width = 1
 	mob.height = size_number
-	mob.sprite = walls_sprite
 	mob.scale = Vector2(0.5, 0.5)
 	var y_spawn = rand_range(64+size_number/2*64*mob.scale.x, 15*64-size_number/2*64*mob.scale.x)
 	mob.global_position = Vector2(2048, y_spawn)
