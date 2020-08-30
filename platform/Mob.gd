@@ -22,7 +22,7 @@ func _ready() -> void:
 func _physics_process(delta):
 	move_and_slide(Vector2(-1, 0)*150)
 
-func laser_hit(laser, collider):
+func laser_hit(laser, laser_collider):
 	if health <= 0:
 		destroy()
 	else:

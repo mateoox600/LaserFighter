@@ -6,7 +6,7 @@ onready var player = $Player
 onready var player_laser = $Player/Laser
 onready var gameloop_timer = $GameLoop
 onready var walls_sprite = load("res://icon.png")
-onready var platform = preload("res://platform/Platform.tscn")
+onready var platform = preload("res://platform/Mob.tscn")
 
 func _ready():
 	randomize()
@@ -26,13 +26,15 @@ func _on_Area2D_body_entered(body):
 
 
 func _on_GameLoop_timeout():
-	var wall = platform.instance()
-	var y_spawn = randi()%14*64+32
-	wall.width = 1
-	wall.height = 1
-	wall.sprite = walls_sprite
-	wall.global_position = Vector2(get_viewport().size.x+wall.width*64, y_spawn)
-	wall.scale = Vector2(0.5, 0.5)
-	player_laser.connect("hit", wall, "hit")
-	get_tree().get_root().add_child(wall)
-	gameloop_timer.start(randi()%2+2)
+	var mob = platform.instance()
+	var size_number = randi()%4
+	mob.width = 1
+	mob.height = size_number
+	mob.sprite = walls_sprite
+	mob.scale = Vector2(0.5, 0.5)
+	var y_spawn = rand_range(64+size_number/2*64*mob.scale.x, 15*64-size_number/2*64*mob.scale.x)
+	mob.global_position = Vector2(2048, y_spawn)
+	mob.health = size_number*5+10
+	player_laser.connect("hit", mob, "hit")
+	get_tree().get_root().add_child(mob)
+	gameloop_timer.start(rand_range(1, 4))
