@@ -28,7 +28,7 @@ func damage(hit_damage:int):
 		$Laser.enable = false
 		$Laser/Particles2D.emitting = false
 
-func mob_kill(mob):
+func mob_death(mob):
 	if !mob.wave_mob:
 		mobs_killed+=1
 	total_mob_killed+=1

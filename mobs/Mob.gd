@@ -8,6 +8,7 @@ onready var collider = $CollisionShape2D
 onready var texture_rect = $TextureRect
 onready var life_bar = $TextureProgress
 
+export var speed:float = 100.0
 export var health:float = 10.0
 export var width:int = 1
 export var height:int = 1
@@ -28,7 +29,7 @@ func _ready() -> void:
 	life_bar.value = health
 
 func _physics_process(delta):
-	move_and_slide(Vector2(-1, 0)*150)
+	move_and_slide(Vector2(-1, 0)*speed)
 	life_bar.value = health
 
 func laser_hit(laser, laser_collider):
