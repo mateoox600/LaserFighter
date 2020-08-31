@@ -22,7 +22,8 @@ func _ready() -> void:
 	texture_rect.rect_size = Vector2(64*width, 64*height)
 	collider.shape.set_extents(Vector2(32*width, 32*height))
 	collider.position = Vector2(32*width, 32*height)
-	life_bar.rect_position = Vector2(0, 64*height)
+	life_bar.rect_position = Vector2(64, 0)
+	life_bar.rect_size = Vector2(8, 64*height)
 	life_bar.max_value = health
 	life_bar.value = health
 

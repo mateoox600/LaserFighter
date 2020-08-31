@@ -19,7 +19,6 @@ func _physics_process(delta):
 		var rot = get_global_mouse_position().angle_to_point(position)
 		laser.laser_rotation = rot
 		rotation_helper.rotation = rot
-		collider.rotation = rot
 
 func damage(hit_damage:int):
 	health-= hit_damage
@@ -32,4 +31,4 @@ func damage(hit_damage:int):
 func mob_kill(mob):
 	if !mob.wave_mob:
 		mobs_killed+=1
-		total_mob_killed+=1
+	total_mob_killed+=1
