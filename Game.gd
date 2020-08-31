@@ -1,5 +1,8 @@
 extends Node2D
 
+var wave = false
+var wave_mobs = 0
+
 onready var player = $Player
 onready var player_laser = $Player/Laser
 onready var gameloop_timer = $GameLoop
@@ -28,15 +31,40 @@ func _on_Area2D_body_entered(body):
 
 func _on_GameLoop_timeout():
 	if !player.dead:
-		var mob = mob_instance.instance()
-		var size_number = randi()%3+1
-		mob.width = 1
-		mob.height = size_number
-		mob.sprite = walls_sprite
-		var y_spawn = rand_range(64+size_number/2*64*mob.scale.x, 15*64-size_number/2*64*mob.scale.x)
-		mob.global_position = Vector2(2048, y_spawn)
-		mob.health = size_number*7.5+10
-		player_laser.connect("hit", mob, "hit")
-		mob.connect("death", player, "mob_kill")
-		get_tree().get_root().add_child(mob)
-		gameloop_timer.start(rand_range(1, 4))
+		if !wave:
+			if player.mobs_killed > 10:
+				if int(rand_range(0, 10)) > 7:
+					wave = true
+					wave_mobs = randi()%20+10
+		
+		if !wave:
+			var mob = mob_instance.instance()
+			var size_number = randi()%3+1
+			mob.width = 1
+			mob.height = size_number
+			mob.sprite = walls_sprite
+			var y_spawn = rand_range(64*mob.scale.x, 15*64-size_number*64*mob.scale.x)
+			mob.global_position = Vector2(2048, y_spawn)
+			mob.health = size_number*7.5+10
+			player_laser.connect("hit", mob, "hit")
+			mob.connect("death", player, "mob_kill")
+			get_tree().get_root().add_child(mob)
+			gameloop_timer.start(rand_range(1, 4))
+		else:
+			wave_mobs-=1
+			var mob = mob_instance.instance()
+			var size_number = randi()%3+1
+			mob.wave_mob = true
+			mob.width = 1
+			mob.height = size_number
+			mob.sprite = walls_sprite
+			var y_spawn = rand_range(64+size_number/2*64*mob.scale.x, 15*64-size_number/2*64*mob.scale.x)
+			mob.global_position = Vector2(2048, y_spawn)
+			mob.health = size_number*2.5+5
+			player_laser.connect("hit", mob, "hit")
+			mob.connect("death", player, "mob_kill")
+			get_tree().get_root().add_child(mob)
+			if wave_mobs < 1:
+				wave = false
+				player.mobs_killed = 0
+			gameloop_timer.start(rand_range(0, 1))

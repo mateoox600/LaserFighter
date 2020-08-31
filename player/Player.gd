@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 var mobs_killed = 0
+var total_mob_killed = 0
 var dead = false
 
 onready var laser = $Laser
@@ -29,4 +30,6 @@ func damage(hit_damage:int):
 		$Laser/Particles2D.emitting = false
 
 func mob_kill(mob):
-	mobs_killed+=1
+	if !mob.wave_mob:
+		mobs_killed+=1
+		total_mob_killed+=1

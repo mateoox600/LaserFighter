@@ -2,6 +2,8 @@ extends KinematicBody2D
 
 class_name Mob
 
+var wave_mob = false
+
 onready var collider = $CollisionShape2D
 onready var texture_rect = $TextureRect
 onready var life_bar = $TextureProgress
